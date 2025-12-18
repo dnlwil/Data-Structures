@@ -19,6 +19,21 @@ Node* node_init(Node* node, int data)
     }
 }
 
+void prepend_list_int(Node** head, int data)
+{
+    if (NULL != *head)
+    {
+        Node* current_node = *head;
+        current_node->previous = node_init(current_node->previous, data);
+        current_node->previous->next = current_node;
+        *head = current_node->previous;
+    }
+    else
+    {
+        *head = node_init(*head, data);
+    }
+}
+
 void append_list_int(Node** head, int data)
 {
     if (NULL != *head)

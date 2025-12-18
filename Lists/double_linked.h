@@ -13,6 +13,7 @@ typedef struct Node
 } Node;
 
 Node* node_init(Node*, int data);
+void prepend_list_int(Node** head, int data);
 void append_list_int(Node** head, int data);
 Node* delete_node(Node* head, uint32 node_number);
 void display_list(Node* head);
