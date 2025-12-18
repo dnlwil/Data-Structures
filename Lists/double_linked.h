@@ -1,9 +1,6 @@
 #ifndef DOUBLE_LINKED_H
 #define DOUBLE_LINKED_H
 
-
-//#define NULL (void*)0
-
 typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint32;

@@ -37,16 +37,6 @@ void append_list_int(Node** head, int data)
     }
 }
 
-// Node* previous_node(Node* node)
-// {
-
-// }
-
-// Node* next_node(Node* node)
-// {
-
-// }
-
 Node* delete_node(Node* head, uint32 node_number)
 {
     if (NULL != head)
