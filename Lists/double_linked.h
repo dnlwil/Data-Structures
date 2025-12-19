@@ -12,10 +12,12 @@ typedef struct Node
     struct Node *next;
 } Node;
 
-Node* node_init(Node*, int data);
+Node* node_init(int data);
 void prepend_list_int(Node** head, int data);
 void append_list_int(Node** head, int data);
+void insert_node(Node** head, uint32 position, int data);
 Node* delete_node(Node* head, uint32 node_number);
 void display_list(Node* head);
+void free_list(Node* head);
 
 #endif

@@ -2,21 +2,19 @@
 #include <stdlib.h>
 #include "double_linked.h"
 
-Node* node_init(Node* node, int data)
+Node* node_init(int data)
 {
-    if(NULL == node)
+    Node *new_node = malloc(sizeof(Node));
+    if (NULL == new_node)
     {
-        Node *new_node = malloc(sizeof(Node));
-        new_node->data = data;
-        new_node->previous = NULL;
-        new_node->next = NULL;
-        return new_node;
+        printf("NODE_INIT: Allocation failed");
+        return NULL;
     }
-    else
-    {
-        printf("Node already initialized.\n");
-        return node;
-    }
+
+    new_node->data = data;
+    new_node->previous = NULL;
+    new_node->next = NULL;
+    return new_node;
 }
 
 void prepend_list_int(Node** head, int data)
@@ -24,13 +22,13 @@ void prepend_list_int(Node** head, int data)
     if (NULL != *head)
     {
         Node* current_node = *head;
-        current_node->previous = node_init(current_node->previous, data);
+        current_node->previous = node_init(data);
         current_node->previous->next = current_node;
         *head = current_node->previous;
     }
     else
     {
-        *head = node_init(*head, data);
+        *head = node_init(data);
     }
 }
 
@@ -43,12 +41,55 @@ void append_list_int(Node** head, int data)
         {
             current_node = current_node->next;
         }
-            current_node->next = node_init(current_node->next, data);
-            current_node->next->previous = current_node;
+
+        current_node->next = node_init(data);
+        current_node->next->previous = current_node;
     }
     else
     {
-        *head = node_init(*head, data);
+        printf("APPEND_LIST: List is empty. Initializing.\n");
+        *head = node_init(data);
+    }
+}
+
+void insert_node(Node** head, uint32 position, int data)
+{
+    if (NULL != *head)
+    {
+        Node* current_node = *head;
+        uint32 steps = 0u;
+        for (steps = 0; ((steps < position) && (NULL != current_node->next)); ++steps)
+        {
+            current_node = current_node->next;
+        }
+
+        Node *new_node = node_init(data);
+        if ((position - steps) >= 1u) /* We are going outside of the list range, so we are appending. */
+        {
+            current_node->next = new_node;
+            new_node->previous = current_node;
+            return;
+        }
+
+        if (NULL == current_node->previous) /* Insert at the beginning of the list. */
+        {
+            new_node->next = current_node;
+            current_node->previous = new_node;
+            *head = new_node;
+        }
+        else 
+        {
+            new_node->previous = current_node->previous;
+            new_node->next = current_node;
+            current_node->previous->next = new_node;
+            current_node->previous = new_node;
+        }
+    }
+    else
+    {
+        printf("INSERT_NODE: List is empty. Initializing.\n");
+        *head = node_init(data);
+        return;
     }
 }
 
@@ -111,6 +152,12 @@ void display_list(Node* head)
     }
     else
     {
-        printf("List is empty.\n");
+        printf("DISPLAY_LIST: List is empty.\n");
     }
+}
+
+void free_list(Node *head)
+{
+    (void)head;
+    /*TODO*/
 }
