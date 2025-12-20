@@ -5,19 +5,19 @@ typedef unsigned char uint8;
 typedef unsigned short uint16;
 typedef unsigned int uint32;
 
-typedef struct Node
+typedef struct Node_t
 {
     int data;
-    struct Node *previous;
-    struct Node *next;
-} Node;
+    struct Node_t *previous;
+    struct Node_t *next;
+} Node_t;
 
-Node* node_init(int data);
-void prepend_list_int(Node** head, int data);
-void append_list_int(Node** head, int data);
-void insert_node(Node** head, uint32 position, int data);
-Node* delete_node(Node* head, uint32 node_number);
-void display_list(Node* head);
-void free_list(Node* head);
+Node_t* node_init(int data);
+void prepend_list_int(Node_t** head, int data);
+void append_list_int(Node_t** head, int data);
+void insert_node(Node_t** head, uint32 position, int data);
+Node_t* delete_node(Node_t* head, uint32 node_number);
+void display_list(Node_t* head);
+void free_list(Node_t** head);
 
 #endif

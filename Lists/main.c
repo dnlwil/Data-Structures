@@ -10,7 +10,7 @@ int main()
     char buf2[10] = { '\0'};
     uint8 exit = 0u;
 
-    Node *head = NULL;
+    Node_t *head = NULL;
 
     printf("Provide value for initialization: ");
     fgets(buf, sizeof(buf), stdin);
@@ -18,7 +18,7 @@ int main()
 
     while(0u == exit)
     {
-        printf("1 - Prepend list\n2 - Append list\n3 - Insert node\n4 - Delete node\n5 - Display list\n6 - Exit\n");
+        printf("1 - Prepend list\n2 - Append list\n3 - Insert node\n4 - Delete node\n5 - Display list\n9 - Exit\n");
         fgets(buf,sizeof(buf),stdin);
         choice = atoi(buf);
         switch(choice)
@@ -51,5 +51,6 @@ int main()
         }
     }
 
+    free_list(&head);
     return 0;
 }

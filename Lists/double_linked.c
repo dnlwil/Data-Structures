@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include "double_linked.h"
 
-Node* node_init(int data)
+Node_t* node_init(int data)
 {
-    Node *new_node = malloc(sizeof(Node));
+    Node_t *new_node = malloc(sizeof(Node_t));
     if (NULL == new_node)
     {
         printf("NODE_INIT: Allocation failed");
@@ -17,11 +17,11 @@ Node* node_init(int data)
     return new_node;
 }
 
-void prepend_list_int(Node** head, int data)
+void prepend_list_int(Node_t** head, int data)
 {
     if (NULL != *head)
     {
-        Node* current_node = *head;
+        Node_t* current_node = *head;
         current_node->previous = node_init(data);
         current_node->previous->next = current_node;
         *head = current_node->previous;
@@ -32,11 +32,11 @@ void prepend_list_int(Node** head, int data)
     }
 }
 
-void append_list_int(Node** head, int data)
+void append_list_int(Node_t** head, int data)
 {
     if (NULL != *head)
     {
-        Node* current_node = *head;
+        Node_t* current_node = *head;
         while (NULL != current_node->next)
         {
             current_node = current_node->next;
@@ -52,18 +52,18 @@ void append_list_int(Node** head, int data)
     }
 }
 
-void insert_node(Node** head, uint32 position, int data)
+void insert_node(Node_t** head, uint32 position, int data)
 {
     if (NULL != *head)
     {
-        Node* current_node = *head;
+        Node_t* current_node = *head;
         uint32 steps = 0u;
         for (steps = 0; ((steps < position) && (NULL != current_node->next)); ++steps)
         {
             current_node = current_node->next;
         }
 
-        Node *new_node = node_init(data);
+        Node_t *new_node = node_init(data);
         if ((position - steps) >= 1u) /* We are going outside of the list range, so we are appending. */
         {
             current_node->next = new_node;
@@ -93,11 +93,11 @@ void insert_node(Node** head, uint32 position, int data)
     }
 }
 
-Node* delete_node(Node* head, uint32 node_number)
+Node_t* delete_node(Node_t* head, uint32 node_number)
 {
     if (NULL != head)
     {
-        Node* current_node = head;
+        Node_t* current_node = head;
         for (uint32 i=0;i<node_number && NULL != current_node;++i)
         {
             current_node = current_node->next;
@@ -137,12 +137,12 @@ Node* delete_node(Node* head, uint32 node_number)
     return head;
 }
 
-void display_list(Node* head)
+void display_list(Node_t* head)
 {
     if (NULL != head)
     {
         int i = 0;
-        Node *current_node = head;
+        Node_t *current_node = head;
         while (NULL != current_node)
         {
             printf("Node %d data: %d\n", i, current_node->data);
@@ -156,8 +156,18 @@ void display_list(Node* head)
     }
 }
 
-void free_list(Node *head)
+void free_list(Node_t** head)
 {
-    (void)head;
-    /*TODO*/
+    if (NULL != *head)
+    {
+        Node_t* current_node = *head;
+        while(NULL != current_node->next)
+        {
+            Node_t* temp_node = current_node->next;
+            free(current_node);
+            current_node = temp_node;
+        }
+        free(current_node);
+        *head = NULL;
+    }
 }
