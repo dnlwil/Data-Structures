@@ -43,7 +43,7 @@ int main()
             case 4:
                 printf("Provide node number to be deleted: ");
                 fgets(buf,sizeof(buf),stdin);
-                head = delete_node(head, (int)atoi(buf));
+                delete_node(&head, (int)atoi(buf));
                 break;
             case 5: puts(""); display_list(head); puts(""); break;
             case 9: exit = 1u; break;

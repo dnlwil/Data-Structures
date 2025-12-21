@@ -16,7 +16,7 @@ Node_t* node_init(int data);
 void prepend_list_int(Node_t** head, int data);
 void append_list_int(Node_t** head, int data);
 void insert_node(Node_t** head, uint32 position, int data);
-Node_t* delete_node(Node_t* head, uint32 node_number);
+void delete_node(Node_t** head, uint32 node_number);
 void display_list(Node_t* head);
 void free_list(Node_t** head);
 

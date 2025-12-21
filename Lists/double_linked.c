@@ -93,12 +93,12 @@ void insert_node(Node_t** head, uint32 position, int data)
     }
 }
 
-Node_t* delete_node(Node_t* head, uint32 node_number)
+void delete_node(Node_t** head, uint32 node_number)
 {
-    if (NULL != head)
+    if (NULL != *head)
     {
-        Node_t* current_node = head;
-        for (uint32 i=0;i<node_number && NULL != current_node;++i)
+        Node_t* current_node = *head;
+        for (uint32 i = 0; (i < node_number) && (NULL != current_node); ++i)
         {
             current_node = current_node->next;
         }
@@ -106,12 +106,12 @@ Node_t* delete_node(Node_t* head, uint32 node_number)
         if (NULL == current_node)
         {
             printf("DELETE_NODE: Invalid node number\n");
-            return head;
+            return;
         }
 
         if (NULL == current_node->previous)
         {
-            head = current_node->next;
+            *head = current_node->next;
             if (NULL != current_node->next)
             {
                 current_node->next->previous = NULL;
@@ -133,8 +133,6 @@ Node_t* delete_node(Node_t* head, uint32 node_number)
     {
         printf("DELETE_NODE: Provided list is empty.\n");
     }
-
-    return head;
 }
 
 void display_list(Node_t* head)
